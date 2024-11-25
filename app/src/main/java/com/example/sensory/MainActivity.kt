@@ -3,15 +3,23 @@ package com.example.sensory
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sensory.ui.theme.SensoryTheme
+import dagger.hilt.android.AndroidEntryPoint
+import androidx.lifecycle.viewmodel.compose.viewModel
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +30,26 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting()
+                }
+                val viewModel = viewModel<MainViewModel>()
+                val isDark = viewModel.isDark
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            if(isDark) Color.DarkGray else Color.White
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = if(isDark){
+                            "It's dark"
+                        } else {
+                            "It's bright"
+                        },
+                        color = if(isDark) Color.White else Color.DarkGray
+                    )
                 }
             }
         }
@@ -30,9 +57,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting( modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
+        text = "Alicja Musiał, Sensory",
         modifier = modifier
     )
 }
@@ -41,6 +68,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     SensoryTheme {
-        Greeting("Android")
+        Greeting()
     }
 }

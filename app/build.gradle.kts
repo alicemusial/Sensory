@@ -1,11 +1,14 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+
 }
 
 android {
     namespace = "com.example.sensory"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.sensory"
@@ -50,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -66,4 +70,17 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.10")
+    implementation ("androidx.compose.ui:ui:1.5.0") // lub najnowsza wersja Compose
+    implementation ("androidx.compose.material3:material3:1.1.0") // lub najnowsza wersja Material 3
+    implementation ("androidx.compose.ui:ui-tooling-preview:1.5.0") // do podglądu
+    implementation ("androidx.compose.runtime:runtime-livedata:1.5.0") // integracja z LiveData
+    implementation ("androidx.activity:activity-compose:1.8.0") // dla Activity i Compose
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0") // dla Lifecycle
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-compiler:2.44")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
+
+
 }
